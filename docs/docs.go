@@ -19,12 +19,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
-	BasePath:         "",
+	Version:          "1.0",
+	Host:             "https://lshuang.dev",
+	BasePath:         "/api",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "Server Challenge API",
+	Description:      "This is a basic API using Gin and Gorm.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

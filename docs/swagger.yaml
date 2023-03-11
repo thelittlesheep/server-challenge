@@ -1,4 +1,9 @@
+basePath: /api
+host: https://lshuang.dev
 info:
   contact: {}
+  description: This is a basic API using Gin and Gorm.
+  title: Server Challenge API
+  version: "1.0"
 paths: {}
 swagger: "2.0"

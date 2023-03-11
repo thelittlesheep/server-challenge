@@ -1,7 +1,12 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "This is a basic API using Gin and Gorm.",
+        "title": "Server Challenge API",
+        "contact": {},
+        "version": "1.0"
     },
+    "host": "https://lshuang.dev",
+    "basePath": "/api",
     "paths": {}
 }
