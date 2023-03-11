@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 // swagger:model User
 type UserBasic struct {
-	Name     string `gorm:"not null"`
-	Email    string `gorm:"not null;unique"`
-	Password string `gorm:"not null"`
+	Name     string `gorm:"not null" json:"name" binding:"min=3,max=20"`
+	Email    string `gorm:"not null;unique" json:"email" binding:"required,email"`
+	Password string `gorm:"not null" json:"password" binding:"required,min=8,max=20"`
 }
 
 type User struct {

@@ -1,9 +1,48 @@
 basePath: /api
+definitions:
+  models.User:
+    properties:
+      email:
+        type: string
+      name:
+        maxLength: 20
+        minLength: 3
+        type: string
+      password:
+        maxLength: 20
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
 host: https://lshuang.dev
 info:
   contact: {}
   description: This is a basic API using Gin and Gorm.
   title: Server Challenge API
   version: "1.0"
-paths: {}
+paths:
+  /users/:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      summary: Create a new user
+      tags:
+      - user
 swagger: "2.0"
