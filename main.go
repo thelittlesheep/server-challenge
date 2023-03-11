@@ -7,6 +7,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	_ "serverChallenge/docs"
 	"serverChallenge/handlers"
+	"serverChallenge/routes"
 )
 
 // @title Server Challenge API
@@ -35,6 +36,8 @@ func main() {
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerfiles.Handler, opts...))
 
 	router.Use(handlers.ErrorHandler)
+
+	routes.Main(router)
 
 	router.Run(":" + myEnv["PORT"])
 }
