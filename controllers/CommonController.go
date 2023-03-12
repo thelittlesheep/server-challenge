@@ -3,13 +3,38 @@ package controllers
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
+	. "serverChallenge/config"
 	"serverChallenge/helper"
 	. "serverChallenge/models"
 	. "serverChallenge/requests/common"
-	"serverChallenge/resources"
+	"time"
 )
+
+type authClaims struct {
+	jwt.StandardClaims
+	UserID uint `json:"userId"`
+}
+
+func generateToken(user User) (string, error) {
+	authConfig := AuthConfig{}.AuthConfig()
+	jwtKey := []byte(authConfig.JWTSecret)
+	expiresAt := time.Now().Add(authConfig.JWTExpireTime * time.Hour).Unix()
+	token := jwt.NewWithClaims(jwt.SigningMethodHS512, authClaims{
+		StandardClaims: jwt.StandardClaims{
+			Subject:   user.Email,
+			ExpiresAt: expiresAt,
+		},
+		UserID: user.ID,
+	})
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		return "", err
+	}
+	return tokenString, nil
+}
 
 // Login godoc
 // @Summary Login a user
@@ -42,7 +67,9 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, helper.WrapResponse(resources.Message{Message: "User login successfully"}))
+	token, err := generateToken(*userFromDB)
+
+	ctx.JSON(http.StatusOK, helper.WrapResponse(token))
 }
 
 func validateUser(email string) (*User, error) {
