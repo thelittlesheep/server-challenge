@@ -7,4 +7,5 @@ import (
 func Main(router *gin.Engine) {
 	index := router.Group("/api")
 	UserRoute(index)
+	CommonRoute(index)
 }
