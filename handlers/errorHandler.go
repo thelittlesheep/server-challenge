@@ -15,7 +15,6 @@ func ErrorHandler(ctx *gin.Context) {
 		}
 
 		statusCode := ctx.Writer.Status()
-		err := ctx.Errors.Last()
 
 		switch statusCode {
 		case 401:
@@ -29,10 +28,6 @@ func ErrorHandler(ctx *gin.Context) {
 		case 404:
 			ctx.JSON(http.StatusNotFound, gin.H{
 				"message": "Not Found",
-			})
-		default:
-			ctx.JSON(statusCode, gin.H{
-				"message": err,
 			})
 		}
 		ctx.Abort()
