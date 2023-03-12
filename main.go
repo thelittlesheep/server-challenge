@@ -37,6 +37,8 @@ func main() {
 
 	router.Use(handlers.ErrorHandler)
 
+	router.LoadHTMLGlob("views/*")
+
 	routes.Main(router)
 
 	router.Run(":" + myEnv["PORT"])
