@@ -23,6 +23,7 @@ func DB() (*gorm.DB, error) {
 		return nil, err
 	}
 
+	err = db.AutoMigrate(&User{})
 	if err != nil {
 		panic(err)
 	}
