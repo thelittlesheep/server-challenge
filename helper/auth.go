@@ -48,3 +48,7 @@ func ValidateToken(tokenString string) (*AuthClaims, error) {
 	}
 	return &claims, nil
 }
+
+type AuthInContext struct {
+	User User `json:"user"`
+}
