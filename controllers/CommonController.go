@@ -6,8 +6,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"serverChallenge/helper"
+	. "serverChallenge/helper"
 	. "serverChallenge/models"
 	. "serverChallenge/requests/common"
+	"serverChallenge/resources/user"
 )
 
 // Login godoc
@@ -56,4 +58,32 @@ func validateUser(email string) (*User, error) {
 	}
 
 	return user, nil
+}
+
+// Me godoc
+// @Summary Get user detail
+// @Description Get user detail
+// @Tags common
+// @Accept  json
+// @Produce  json
+// @Security ApiKeyAuth
+// @Success 200 {object} User
+// @Router /me [get]
+func Me(ctx *gin.Context) {
+	ctx.Status(422)
+
+	value, exist := ctx.Get("auth")
+	if !exist {
+		_ = ctx.Error(errors.New("missing auth"))
+		return
+	}
+	auth := value.(AuthInContext)
+
+	userForResponse := user.DetailResource{
+		ID:    auth.User.ID,
+		Name:  auth.User.Name,
+		Email: auth.User.Email,
+	}
+
+	ctx.JSON(http.StatusOK, helper.WrapResponse(userForResponse))
 }

@@ -30,3 +30,11 @@ func (u *User) FindOneByEmail(email string) (*User, error) {
 	}
 	return u, nil
 }
+
+func (u *User) FindOne(id uint) (*User, error) {
+	result := db.Debug().First(&u, id)
+	if result.Error == gorm.ErrRecordNotFound {
+		return nil, result.Error
+	}
+	return u, nil
+}

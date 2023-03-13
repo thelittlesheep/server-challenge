@@ -45,6 +45,23 @@ paths:
       summary: Login a user
       tags:
       - common
+  /me:
+    get:
+      consumes:
+      - application/json
+      description: Get user detail
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+      security:
+      - ApiKeyAuth: []
+      summary: Get user detail
+      tags:
+      - common
   /users/:
     post:
       consumes:
