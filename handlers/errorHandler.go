@@ -38,6 +38,10 @@ func ErrorHandler(ctx *gin.Context) {
 				ctx.JSON(http.StatusNotFound, gin.H{
 					"message": "Not Found",
 				})
+			case 422:
+				ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+					"message": "Unprocessable Entity",
+				})
 			}
 		}
 
