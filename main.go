@@ -41,5 +41,8 @@ func main() {
 
 	routes.Main(router)
 
+	if myEnv["PORT"] == "" {
+		myEnv["PORT"] = "8080"
+	}
 	router.Run(":" + myEnv["PORT"])
 }
