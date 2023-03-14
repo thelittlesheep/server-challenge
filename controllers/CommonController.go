@@ -3,6 +3,7 @@ package controllers
 import (
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"serverChallenge/helper"
@@ -45,7 +46,10 @@ func Login(ctx *gin.Context) {
 
 	token, err := helper.GenerateToken(*userFromDB)
 
-	ctx.SetCookie("token", token, 3600, "/", "localhost", false, true)
+	var myEnv map[string]string
+	myEnv, _ = godotenv.Read()
+
+	ctx.SetCookie("token", token, 3600, "/", myEnv["HOST"], false, true)
 	ctx.JSON(http.StatusOK, helper.WrapResponse(token))
 }
 
