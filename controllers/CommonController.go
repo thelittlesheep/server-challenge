@@ -45,6 +45,7 @@ func Login(ctx *gin.Context) {
 
 	token, err := helper.GenerateToken(*userFromDB)
 
+	ctx.SetCookie("token", token, 3600, "/", "localhost", false, true)
 	ctx.JSON(http.StatusOK, helper.WrapResponse(token))
 }
 
