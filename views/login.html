@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <h2>Login</h2>
+      <form id="login-form" action="api/common/login" method="post">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" class="form-control" id="username" name="username">
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
+<script>
+  // Handle successful login using JavaScript
+  const loginForm = document.getElementById("login-form");
+  loginForm.addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    const loginData = {
+      email: loginForm.elements.username.value,
+      password: loginForm.elements.password.value
+    };
+    fetch(loginForm.action, {
+      method: loginForm.method,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(loginData)
+    })
+    .then(function(response) {
+      if (response.ok) {
+        // Redirect the user to the home page after successful login
+        window.location.href = "/dashboard";
+      } else {
+        // Handle login error here
+        console.error("Login error:", response.status);
+      }
+    })
+    .catch(function(error) {
+      console.error("Network error:", error);
+    });
+  });
+
+</script>
