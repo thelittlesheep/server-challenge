@@ -10,6 +10,7 @@ func Main(router *gin.Engine) {
 	{
 		indexRouting.GET("", GetIndexView)
 		indexRouting.GET("login", GetLoginView)
+		indexRouting.GET("dashboard", GetDashboardView)
 	}
 	index := router.Group("/api")
 	UserRoute(index)
